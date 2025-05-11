@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# Check if there are any staged files
+if ! git diff --cached --quiet; then
+	printf "bump_version: You have staged files, quitting...\n";
+	exit 2;
+fi
+
+VERSION_PATH="./VERSION";
+
+if ! test -f "$VERSION_PATH"; then
+	printf "bump_version: File \"%s\" not found\n" "$VERSION_PATH";
+	exit 2;
+fi
+
+VERSION="$(cat "${VERSION_PATH}")";
+VERSION_MAJOR="$(echo "$VERSION" | cut -d. -f1)";
+VERSION_MINOR="$(echo "$VERSION" | cut -d. -f2)";
+VERSION_PATCH="$(echo "$VERSION" | cut -d. -f3)";
+CREATE_TAG=false
+
+if test "$1" = "-major"; then
+	VERSION_MAJOR=$((VERSION_MAJOR+1));
+	VERSION_MINOR=0;
+	VERSION_PATCH=0;
+	CREATE_TAG=true;
+elif test "$1" = "-minor"; then
+	VERSION_MINOR=$((VERSION_MINOR+1));
+	VERSION_PATCH=0;
+	CREATE_TAG=true;
+elif test "$1" = "-patch"; then
+	VERSION_PATCH=$((VERSION_PATCH+1));
+else
+	printf "bump_version: Unsupported option\n";
+	exit 2;
+fi
+
+VERSION="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}";
+echo "${VERSION}" > "${VERSION_PATH}";
+git add "${VERSION_PATH}";
+git commit --quiet -m "bump version to ${VERSION}";
+if $CREATE_TAG; then git tag "v${VERSION}"; fi
+echo "New version: ${VERSION}"

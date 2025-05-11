@@ -1,0 +1,10 @@
+[Desktop Entry]
+Categories=Game;
+Type=Application
+TryExec=trucotricks
+Exec=trucotricks
+GenericName=Card memoization
+Name=Truco Tricks
+Comment=Learn how to memorize the spanish card deck
+Terminal=false
+StartupWMClass=trucotricks

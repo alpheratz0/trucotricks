@@ -1,0 +1,55 @@
+// SPDX-License-Identifier: GPL-2.0-only © 2025 <alpheratz99@protonmail.com>
+
+#ifndef TRUCOTRICKS_KEYBOARD_H
+#define TRUCOTRICKS_KEYBOARD_H
+
+#include <stdbool.h>
+
+enum Tt_Key {
+	KEY_A, KEY_B, KEY_C, KEY_D, KEY_E, KEY_F,
+	KEY_G, KEY_H, KEY_I, KEY_J, KEY_K, KEY_L,
+	KEY_M, KEY_N, KEY_O, KEY_P, KEY_Q, KEY_R,
+	KEY_S, KEY_T, KEY_U, KEY_V, KEY_W, KEY_X,
+	KEY_Y, KEY_Z, KEY_0, KEY_1, KEY_2, KEY_3,
+	KEY_4, KEY_5, KEY_6, KEY_7, KEY_8, KEY_9,
+	KEY_NUMPAD_0, KEY_NUMPAD_1, KEY_NUMPAD_2,
+	KEY_NUMPAD_3, KEY_NUMPAD_4, KEY_NUMPAD_5,
+	KEY_NUMPAD_6, KEY_NUMPAD_7, KEY_NUMPAD_8,
+	KEY_NUMPAD_9, KEY_SPACE, KEY_APOSTROPHE, KEY_COMMA, KEY_MINUS,
+	KEY_PERIOD, KEY_SLASH, KEY_SEMICOLON, KEY_EQUAL,
+	KEY_LEFT_BRACKET, KEY_BACKSLASH, KEY_RIGHT_BRACKET, KEY_GRAVE_ACCENT,
+	KEY_RIGHT_ARROW, KEY_LEFT_ARROW, KEY_DOWN_ARROW, KEY_UP_ARROW,
+	KEY_LEFT_SHIFT, KEY_RIGHT_SHIFT, KEY_LEFT_CONTROL,
+	KEY_RIGHT_CONTROL, KEY_LEFT_ALT, KEY_RIGHT_ALT,
+	KEY_ESCAPE, KEY_TAB, KEY_ENTER, KEY_BACKSPACE, KEY_DELETE,
+	KEY_F1, KEY_F2, KEY_F3, KEY_F4, KEY_F5, KEY_F6,
+	KEY_F7, KEY_F8, KEY_F9, KEY_F10, KEY_F11, KEY_F12,
+	KEY_COUNT, KEY_INVALID
+};
+
+enum Tt_Mod {
+	MOD_NONE = 0,
+	MOD_CONTROL = 1UL<<1,
+	MOD_SHIFT = 1UL<<2,
+	MOD_ALT = 1UL<<3,
+};
+
+enum Tt_State {
+	STATE_PRESS,
+	STATE_RELEASE,
+	STATE_INVALID,
+};
+
+void Tt_Keyboard_Init(void);
+
+void Tt_Keyboard_Dispatch_Key_Event(enum Tt_Key key, enum Tt_State state, enum Tt_Mod mods);
+
+void Tt_Keyboard_Dispatch_Text_Input_Event(char c);
+
+void Tt_Keyboard_Ignore(bool ignore);
+
+bool Tt_Keyboard_Is_Key_Pressed(enum Tt_Key key);
+
+void Tt_Keyboard_Deinit(void);
+
+#endif
