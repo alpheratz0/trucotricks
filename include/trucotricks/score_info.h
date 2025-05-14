@@ -11,6 +11,7 @@ struct Tt_Score_Info {
 	float lastResponseTime;
 	float bestResponseTime;
 	float averageResponseTime;
+	int correctGuesses;
 	int score;
 };
 

@@ -57,7 +57,7 @@ static void cardButtonClicked(Tt_Card_Button *sender)
 		Tt_Score_Info_Increase_Score(&scoreInfo);
 		snprintf(&scoreLabel.text[0], SCORE_LABEL_CAPACITY, "%d", scoreInfo.score);
 	} else {
-		Tt_Game_Over(scoreInfo);
+		Tt_Game_Over(scoreInfo, false);
 	}
 }
 

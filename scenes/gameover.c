@@ -12,6 +12,7 @@
 #include <trucotricks/score_info.h>
 #include <trucotricks/util.h>
 #include <trucotricks/window.h>
+#include <stdbool.h>
 
 #define STATS_BUF_SIZE 256
 #define MARGIN_GAME_OVER_LABEL 40
@@ -23,11 +24,13 @@ static Tt_Label gameOverLabel;
 static Tt_Label statsLabels[5];
 static Tt_Label guideLabel;
 static Tt_Parallax backgroundParallax;
+static bool userWon;
 
-void Tt_Game_Over(Tt_Score_Info _gameOverScore)
+void Tt_Game_Over(Tt_Score_Info _gameOverScore, bool won)
 {
 	gameOverScore = _gameOverScore;
 	Tt_Scene_Switch(SCENE_GAME_OVER);
+	userWon = won;
 }
 
 static void awake(void)
@@ -43,10 +46,8 @@ static void awake(void)
 	gameOverLabel.fontSize = 80;
 	gameOverLabel.align = ALIGN_CENTER | ALIGN_TOP;
 	gameOverLabel.font = gFontAttackOfMonster;
-	gameOverLabel.text = "Game Over";
 	gameOverLabel.hasShadow = true;
 	gameOverLabel.shadowColor = 0x000000;
-	gameOverLabel.color = 0x7fffff00;
 
 	for (size_t i = 0; i < Tt_Length(statsLabels); ++i) {
 		statsLabels[i].h = 20;
@@ -97,11 +98,14 @@ static void layoutChange(void)
 
 static void enter(void)
 {
+	gameOverLabel.text = userWon ? "You won!" : "Game Over";
+	gameOverLabel.color = userWon ? 0x7f66ff66 : 0x7fffff00;
+
 	int minutes = (int)(gameOverScore.playTime) / 60;
 	int seconds = (int)(gameOverScore.playTime) % 60;
 	int ms = (gameOverScore.playTime - minutes * 60 - seconds) * 1000;
 
-	snprintf(&statsLabels[0].text[0], STATS_BUF_SIZE, "Score: %d", gameOverScore.score);
+	snprintf(&statsLabels[0].text[0], STATS_BUF_SIZE, "Score: %d (%d card%s)", gameOverScore.score, gameOverScore.correctGuesses, gameOverScore.correctGuesses == 1 ? "" : "s");
 	snprintf(&statsLabels[1].text[0], STATS_BUF_SIZE, "Ellapsed time: %02d:%02d.%03d", minutes, seconds, ms);
 
 	if (gameOverScore.score == 0) {
