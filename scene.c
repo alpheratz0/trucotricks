@@ -72,7 +72,7 @@ void Tt_Scene_Switch(enum Tt_Scene_Id sid)
 		__Tt_Scene_Enter(sid);
 		previous = current;
 		current = sid;
-	} else if (!isSwitching) {
+	} else {
 		switchingState = FADE_OUT;
 		isSwitching = true;
 		switchingTimer = 0.0f;
