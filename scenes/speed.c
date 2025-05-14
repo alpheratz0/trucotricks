@@ -28,6 +28,7 @@
 #define MARGIN_CUSTOM_GUESS_LABEL 20
 #define SCORE_LABEL_CAPACITY 32
 
+static float cardWatchTime;
 static bool autoAcceptGuess = true;
 static bool showHints;
 static Tt_Score_Info scoreInfo;
@@ -37,25 +38,14 @@ static Tt_Animated_Sprite coinSprite;
 static Tt_Label hintLabels[RANK_COUNT+SUIT_COUNT+1/*separator*/];
 static Tt_String_Builder customGuess;
 static Tt_Parallax backgroundParallax;
+static Tt_Card_Button unknownCardButton;
 static Tt_Card_Button cardButton;
-static Tt_Button cardEncodedButtons[3];
 static Tt_Deck deck;
 
 static void newRound(void)
 {
-	Tt_Card cardOptions[Tt_Length(cardEncodedButtons)];
-
-	deck = Tt_Deck_Shuffled();
-
-	for (size_t i = 0; i < Tt_Length(cardOptions); ++i) {
-		cardOptions[i] = Tt_Deck_Draw(&deck, 0);
-
-		Tt_Card_Encode(&cardOptions[i], sizeof(cardEncodedButtons[i].text),
-				&cardEncodedButtons[i].text[0]);
-	}
-
-	cardButton.card = cardOptions[rand() % Tt_Length(cardOptions)];
-
+	cardButton.card = Tt_Deck_Draw(&deck, 0);
+	cardWatchTime = 0.0f;
 	Tt_String_Builder_Clear(&customGuess);
 }
 
@@ -64,22 +54,24 @@ static void submitGuess(const char *guess)
 	Tt_Card guessCard = Tt_Card_Decode(guess);
 
 	if (Tt_Card_Equals(&guessCard, &cardButton.card)) {
-		newRound();
 		Tt_Sound_Play(gSoundSwipe);
 		Tt_Score_Info_Increase_Score(&scoreInfo);
 		snprintf(&scoreLabel.text[0], SCORE_LABEL_CAPACITY, "%d", scoreInfo.score);
+
+		if (scoreInfo.correctGuesses == (RANK_COUNT * SUIT_COUNT)) {
+			Tt_Game_Over(scoreInfo, true);
+		} else {
+			newRound();
+		}
 	} else {
 		Tt_Game_Over(scoreInfo, false);
 	}
 }
 
-static void cardEncodedButtonClicked(Tt_Button *sender)
-{
-	submitGuess(&sender->text[0]);
-}
-
 static void awake(void)
 {
+	unknownCardButton.card = Tt_Card_Init(-1, -1);
+
 	coinSprite.x = 30;
 	coinSprite.y = 30;
 	coinSprite.w = 70;
@@ -131,14 +123,8 @@ static void awake(void)
 	memcpy(&backgroundParallax.textures[0], &gTexBackgroundParallax[0],
 			sizeof(Tt_Texture) * backgroundParallax.nTextures);
 
-	cardButton.w = 177;
-	cardButton.h = 264;
-
-	for (size_t i = 0; i < Tt_Length(cardEncodedButtons); ++i) {
-		cardEncodedButtons[i].w = 100;
-		cardEncodedButtons[i].h = 100;
-		cardEncodedButtons[i].onClick = cardEncodedButtonClicked;
-	}
+	unknownCardButton.w = cardButton.w = 177;
+	unknownCardButton.h = cardButton.h = 264;
 }
 
 static void layoutChange(void)
@@ -158,7 +144,7 @@ static void layoutChange(void)
 	backgroundParallax.w = gWindowWidth;
 	backgroundParallax.h = gWindowHeight;
 
-	float heightUsed = customGuessLabel.h + MARGIN_CUSTOM_GUESS_LABEL + MARGIN_CARD_BUTTON + cardButton.h + MARGIN_CARD_BUTTON + MARGIN_CARD_ENCODED_BUTTON + cardEncodedButtons[0].h;
+	float heightUsed = customGuessLabel.h + MARGIN_CUSTOM_GUESS_LABEL + MARGIN_CARD_BUTTON + cardButton.h + MARGIN_CARD_BUTTON;
 
 	float y = (gWindowHeight - heightUsed) * 0.5f;
 
@@ -166,30 +152,24 @@ static void layoutChange(void)
 
 	y += customGuessLabel.h + MARGIN_CUSTOM_GUESS_LABEL + MARGIN_CARD_BUTTON;
 
-	cardButton.y = y;
-	cardButton.x = (gWindowWidth - cardButton.w) * 0.5f;
+	unknownCardButton.y = cardButton.y = y;
+	unknownCardButton.x = cardButton.x = (gWindowWidth - cardButton.w) * 0.5f;
 
 	y += cardButton.h + MARGIN_CARD_BUTTON + MARGIN_CARD_ENCODED_BUTTON;
-
-	float cardEncodedButtonX = (gWindowWidth - cardEncodedButtons[0].w * Tt_Length(cardEncodedButtons) -
-			MARGIN_CARD_ENCODED_BUTTON * (Tt_Length(cardEncodedButtons) - 1)) * 0.5f;
-
-	for (size_t i = 0; i < Tt_Length(cardEncodedButtons); ++i) {
-		cardEncodedButtons[i].y = y;
-		cardEncodedButtons[i].x = cardEncodedButtonX;
-		cardEncodedButtonX += cardEncodedButtons[0].w + MARGIN_CARD_ENCODED_BUTTON;
-	}
 }
 
 static void enter(void)
 {
 	Tt_String_Builder_Clear(&customGuess);
 	Tt_Score_Info_Reset(&scoreInfo);
+	deck = Tt_Deck_Shuffled();
 	newRound();
 }
 
 static void update(double dt)
 {
+	cardWatchTime += dt;
+
 	Tt_Score_Info_Increase_Time(&scoreInfo, dt);
 
 	Tt_Parallax_Update(&backgroundParallax);
@@ -204,29 +184,23 @@ static void update(double dt)
 	for (size_t i = 0; showHints && i < Tt_Length(hintLabels); ++i)
 		Tt_Label_Update(&hintLabels[i]);
 
-	for (size_t i = 0; i < Tt_Length(cardEncodedButtons); ++i)
-		Tt_Button_Update(&cardEncodedButtons[i]);
-
-	Tt_Card_Button_Update(&cardButton);
+	Tt_Card_Button_Update(cardWatchTime <= 0.2f ? &cardButton : &unknownCardButton);
 }
 
 static void keyPress(enum Tt_Key key, enum Tt_Mod mods)
 {
 	switch (key) {
+	case KEY_1:
+		Tt_Scene_Switch(SCENE_GAMEMODE_ENCODE);
+		break;
 	case KEY_2:
 		Tt_Scene_Switch(SCENE_GAMEMODE_DECODE);
 		break;
 	case KEY_3:
 		Tt_Scene_Switch(SCENE_GAMEMODE_MEMORIZE);
 		break;
-	case KEY_4:
-		Tt_Scene_Switch(SCENE_GAMEMODE_SPEED);
-		break;
 	case KEY_F1:
 		showHints = !showHints;
-		break;
-	case KEY_F5:
-		Tt_Scene_Switch(SCENE_GAMEMODE_ENCODE);
 		break;
 	case KEY_A...KEY_Z:
 		Tt_String_Builder_Append(&customGuess, 'A' + (key - KEY_A));
@@ -241,15 +215,18 @@ static void keyPress(enum Tt_Key key, enum Tt_Mod mods)
 		if (customGuess.len != 0)
 			submitGuess(&customGuess.data[0]);
 		break;
+	case KEY_F5:
+		Tt_Scene_Switch(SCENE_GAMEMODE_SPEED);
+		break;
 	default: break;
 	}
 
 }
 
-Tt_Scene Tt_Get_Gamemode_Encode_Scene(void)
+Tt_Scene Tt_Get_Gamemode_Speed_Scene(void)
 {
 	return (Tt_Scene) {
-		.name           = "gamemode: encode",
+		.name           = "gamemode: speed",
 		.cbAwake        = awake,
 		.cbEnter        = enter,
 		.cbUpdate       = update,

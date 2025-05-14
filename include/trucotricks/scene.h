@@ -26,7 +26,8 @@ enum Tt_Scene_Id {
 	SCENE_GAMEMODE_ENCODE = 1, // Game mode 1 scene
 	SCENE_GAMEMODE_DECODE = 2, // Game mode 2 scene
 	SCENE_GAMEMODE_MEMORIZE = 3, // Game mode 3 scene
-	SCENE_GAME_OVER = 4, // Game over scene
+	SCENE_GAMEMODE_SPEED = 4, // Game mode 4 scene
+	SCENE_GAME_OVER = 5, // Game over scene
 	SCENE_INVALID = 100, // No scene
 };
 

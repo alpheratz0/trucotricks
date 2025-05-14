@@ -31,6 +31,7 @@ static void awake(void)
 		Tt_Resource_Texture  ("resources/clouds/3.png",               &gTexBackgroundParallax[2]),
 		Tt_Resource_Texture  ("resources/clouds/4.png",               &gTexBackgroundParallax[3]),
 		Tt_Resource_Texture  ("resources/clouds/5.png",               &gTexBackgroundParallax[4]),
+		Tt_Resource_Texture  ("resources/cards/unknown.jpg",          &gTexUnknownCard),
 		Tt_Resource_Texture  ("resources/cards/basto/1.jpg",          &gTexBasto[RANK_UNO]),
 		Tt_Resource_Texture  ("resources/cards/basto/2.jpg",          &gTexBasto[RANK_DOS]),
 		Tt_Resource_Texture  ("resources/cards/basto/3.jpg",          &gTexBasto[RANK_TRES]),

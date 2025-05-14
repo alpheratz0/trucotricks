@@ -33,6 +33,7 @@ int main(void)
 	Tt_Scene_Bind(SCENE_GAMEMODE_ENCODE, Tt_Get_Gamemode_Encode_Scene());
 	Tt_Scene_Bind(SCENE_GAMEMODE_DECODE, Tt_Get_Gamemode_Decode_Scene());
 	Tt_Scene_Bind(SCENE_GAMEMODE_MEMORIZE, Tt_Get_Gamemode_Memorize_Scene());
+	Tt_Scene_Bind(SCENE_GAMEMODE_SPEED, Tt_Get_Gamemode_Speed_Scene());
 	Tt_Scene_Bind(SCENE_GAME_OVER, Tt_Get_Game_Over_Scene());
 
 	Tt_Scene_Switch(SCENE_LOADING);

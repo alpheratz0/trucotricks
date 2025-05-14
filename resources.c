@@ -5,6 +5,7 @@
 #include <trucotricks/resources.h>
 
 Tt_Texture gTexBackgroundParallax[5] = { TEXTURE_INVALID };
+Tt_Texture gTexUnknownCard = TEXTURE_INVALID;
 Tt_Texture gTexBasto[10] = { TEXTURE_INVALID };
 Tt_Texture gTexOro[10] = { TEXTURE_INVALID };
 Tt_Texture gTexEspada[10] = { TEXTURE_INVALID };

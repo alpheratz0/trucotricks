@@ -19,6 +19,7 @@ typedef int Tt_Font;
 typedef Mix_Chunk * Tt_Sound;
 
 extern Tt_Texture gTexBackgroundParallax[5];
+extern Tt_Texture gTexUnknownCard;
 extern Tt_Texture gTexBasto[10];
 extern Tt_Texture gTexOro[10];
 extern Tt_Texture gTexEspada[10];

@@ -9,6 +9,7 @@ Tt_Scene Tt_Get_Loading_Scene(void);
 Tt_Scene Tt_Get_Gamemode_Encode_Scene(void);
 Tt_Scene Tt_Get_Gamemode_Decode_Scene(void);
 Tt_Scene Tt_Get_Gamemode_Memorize_Scene(void);
+Tt_Scene Tt_Get_Gamemode_Speed_Scene(void);
 Tt_Scene Tt_Get_Game_Over_Scene(void);
 
 #endif

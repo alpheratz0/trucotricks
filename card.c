@@ -37,8 +37,9 @@ void Tt_Card_Print(const Tt_Card *card)
 
 Tt_Texture Tt_Card_Get_Texture(const Tt_Card *card)
 {
-	assert((card->rank >= 0 && card->rank < RANK_COUNT) && "Invalid rank");
-	assert((card->suit >= 0 && card->suit < SUIT_COUNT) && "Invalid suit");
+	if (card->rank < 0 || card->rank >= RANK_COUNT ||
+			card->suit < 0 || card->suit >= SUIT_COUNT)
+		return gTexUnknownCard;
 
 	switch (card->suit) {
 	case SUIT_BASTO: return gTexBasto[card->rank];
