@@ -25,10 +25,12 @@ void Tt_Score_Info_Increase_Score(Tt_Score_Info *scoreInfo)
 	scoreInfo->score += 1;
 
 	if (tookToRespond < 0.5f) {
-		scoreInfo->score += 3;
+		scoreInfo->score += 4;
 	} else if (tookToRespond < 0.8f) {
-		scoreInfo->score += 2;
+		scoreInfo->score += 3;
 	} else if (tookToRespond < 1.0f) {
+		scoreInfo->score += 2;
+	} else if (tookToRespond < 1.3f) {
 		scoreInfo->score += 1;
 	}
 
