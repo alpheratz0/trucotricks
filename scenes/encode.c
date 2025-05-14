@@ -222,6 +222,9 @@ static void keyPress(enum Tt_Key key, enum Tt_Mod mods)
 	case KEY_F1:
 		showHints = !showHints;
 		break;
+	case KEY_F5:
+		Tt_Scene_Switch(SCENE_GAMEMODE_ENCODE);
+		break;
 	case KEY_A...KEY_Z:
 		Tt_String_Builder_Append(&customGuess, 'A' + (key - KEY_A));
 		if (autoAcceptGuess && (customGuess.len == (customGuess.data[0] == 'C' ? 3 : 2)))

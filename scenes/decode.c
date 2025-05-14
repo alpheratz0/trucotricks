@@ -185,6 +185,9 @@ static void keyPress(enum Tt_Key key, enum Tt_Mod mods)
 	case KEY_F1:
 		showHints = !showHints;
 		break;
+	case KEY_F5:
+		Tt_Scene_Switch(SCENE_GAMEMODE_DECODE);
+		break;
 	default: break;
 	}
 }

@@ -65,8 +65,6 @@ static void __Tt_Scene_Leave(enum Tt_Scene_Id sid)
 
 void Tt_Scene_Switch(enum Tt_Scene_Id sid)
 {
-	if (current == sid) return;
-
 	if (current == SCENE_INVALID) {
 		Tt_Mouse_Reset();
 		__Tt_Scene_Leave(current);

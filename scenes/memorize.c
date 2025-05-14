@@ -278,6 +278,9 @@ static void keyPress(enum Tt_Key key, enum Tt_Mod mods)
 		else if (customGuess.len != 0)
 			submitGuess(&customGuess.data[0]);
 		break;
+	case KEY_F5:
+		Tt_Scene_Switch(SCENE_GAMEMODE_MEMORIZE);
+		break;
 	default:
 		break;
 	}
