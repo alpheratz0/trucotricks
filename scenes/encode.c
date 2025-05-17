@@ -30,6 +30,7 @@
 
 static bool autoAcceptGuess = true;
 static bool showHints;
+static bool zenMode = false;
 static Tt_Score_Info scoreInfo;
 static Tt_Label customGuessLabel;
 static Tt_Label scoreLabel;
@@ -69,7 +70,11 @@ static void submitGuess(const char *guess)
 		Tt_Score_Info_Increase_Score(&scoreInfo);
 		snprintf(&scoreLabel.text[0], SCORE_LABEL_CAPACITY, "%d", scoreInfo.score);
 	} else {
-		Tt_Game_Over(scoreInfo, false);
+		if (!zenMode) {
+			Tt_Game_Over(scoreInfo, false);
+		} else {
+			Tt_String_Builder_Clear(&customGuess);
+		}
 	}
 }
 
@@ -240,6 +245,12 @@ static void keyPress(enum Tt_Key key, enum Tt_Mod mods)
 	case KEY_ENTER:
 		if (customGuess.len != 0)
 			submitGuess(&customGuess.data[0]);
+		break;
+	case KEY_F8:
+		zenMode = !zenMode;
+		break;
+	case KEY_ESCAPE:
+		Tt_Game_Over(scoreInfo, zenMode);
 		break;
 	default: break;
 	}
