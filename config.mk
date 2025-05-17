@@ -42,7 +42,7 @@ ifeq ($(DEBUG),on)
 endif
 
 TRUCOTRICKS_CFLAGS = -std=c11 -Wall -O2 $(INCS) \
-				  -DVersion=$(VERSION) $(DEBUG_FLAGS) \
+				  -DVersion='"$(VERSION)"' $(DEBUG_FLAGS) \
 				  $(CPPFLAGS) $(CFLAGS)
 
 TRUCOTRICKS_LDFLAGS = -s $(LIBS) $(LDFLAGS)
