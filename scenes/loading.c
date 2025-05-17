@@ -21,9 +21,6 @@ static void awake(void)
 {
 	static Tt_Resource_Info resources[] = {
 		Tt_Resource_Font     ("resources/attack-of-monster.otf",      &gFontAttackOfMonster),
-		Tt_Resource_Font     ("resources/symbola.ttf",                &gFontSymbola),
-		Tt_Resource_Font     ("resources/notoemoji-regular.ttf",      &gFontEmoji),
-		Tt_Resource_Font     ("resources/unifont.otf",                &gFontCjk),
 		Tt_Resource_Font     ("resources/terminus.ttf",               &gFontTerminus),
 		Tt_Resource_Texture  ("resources/gold_coin.png",              &gTexGoldCoin),
 		Tt_Resource_Texture  ("resources/clouds/1.png",               &gTexBackgroundParallax[0]),
@@ -104,10 +101,6 @@ static void update(double dt)
 	Tt_Resource_Loader_Generate_Textures(resourceLoader);
 	Tt_Resource_Loader_Free(resourceLoader);
 	resourceLoader = NULL;
-
-	nvgAddFallbackFontId(gVg, gFontAttackOfMonster, gFontCjk);
-	nvgAddFallbackFontId(gVg, gFontAttackOfMonster, gFontEmoji);
-	nvgAddFallbackFontId(gVg, gFontAttackOfMonster, gFontSymbola);
 
 	Tt_Scene_Switch(SCENE_GAMEMODE_ENCODE);
 	Tt_Sound_Play_Music(gSoundBackgroundMusic, 0.35f);
