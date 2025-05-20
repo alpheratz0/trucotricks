@@ -88,7 +88,7 @@ static void layoutChange(void)
 static void update(double dt)
 {
 	if (done) {
-		Tt_Scene_Switch(SCENE_GAMEMODE_ENCODE);
+		Tt_Scene_Switch(SCENE_GAMEMODE_SPEED);
 		return;
 	}
 
@@ -102,7 +102,7 @@ static void update(double dt)
 	Tt_Resource_Loader_Free(resourceLoader);
 	resourceLoader = NULL;
 
-	Tt_Scene_Switch(SCENE_GAMEMODE_ENCODE);
+	Tt_Scene_Switch(SCENE_GAMEMODE_SPEED);
 	Tt_Sound_Play_Music(gSoundBackgroundMusic, 0.35f);
 	done = true;
 }

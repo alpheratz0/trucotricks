@@ -190,13 +190,13 @@ static void update(double dt)
 static void keyPress(enum Tt_Key key, enum Tt_Mod mods)
 {
 	switch (key) {
-	case KEY_1:
-		Tt_Scene_Switch(SCENE_GAMEMODE_ENCODE);
-		break;
 	case KEY_2:
 		Tt_Scene_Switch(SCENE_GAMEMODE_DECODE);
 		break;
 	case KEY_3:
+		Tt_Scene_Switch(SCENE_GAMEMODE_ENCODE);
+		break;
+	case KEY_4:
 		Tt_Scene_Switch(SCENE_GAMEMODE_MEMORIZE);
 		break;
 	case KEY_F1:
