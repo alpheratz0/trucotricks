@@ -184,7 +184,7 @@ static void update(double dt)
 	for (size_t i = 0; showHints && i < Tt_Length(hintLabels); ++i)
 		Tt_Label_Update(&hintLabels[i]);
 
-	Tt_Card_Button_Update(cardWatchTime <= 0.2f ? &cardButton : &unknownCardButton);
+	Tt_Card_Button_Update(scoreInfo.score == 0 || cardWatchTime <= 0.2f ? &cardButton : &unknownCardButton);
 }
 
 static void keyPress(enum Tt_Key key, enum Tt_Mod mods)
