@@ -2,7 +2,7 @@
 
 ![Truco tricks running on windows 7](./media/win7.png)
 
-## Installing dependencies
+## Installing dependencies (glfw-x11/glfw-wayland depending on your display server)
 ```sh
 $ sudo pacman -S --needed mingw-w64-gcc wine git base-devel glfw-x11 sdl2 sdl2_mixer premake5 wget sed make
 $ wget https://files.jrsoftware.org/is/6/innosetup-6.4.3.exe
