@@ -4,13 +4,12 @@
 
 ## Installing dependencies (glfw-x11/glfw-wayland depending on your display server)
 ```sh
-$ sudo pacman -S --needed mingw-w64-gcc wine git base-devel glfw-x11 sdl2 sdl2_mixer premake wget sed make
+$ sudo pacman -S --needed mingw-w64-gcc wine git base-devel glfw-x11 sdl2 sdl2_mixer glew premake wget sed make
 $ wget https://files.jrsoftware.org/is/6/innosetup-6.4.3.exe
 $ wine innosetup-6.4.3.exe
 $ git clone --depth 1 https://github.com/memononen/nanovg.git
 $ cd nanovg
 $ wget -O premake5.lua https://raw.githubusercontent.com/alpheratz0/trucotricks/refs/heads/master/extra/nanovg_premake5.lua
-$ mv nanovg_premake5.lua premake5.lua
 $ premake5 gmake
 $ make -C build
 $ sudo install -m 644 build/libnanovg.a /usr/lib/
