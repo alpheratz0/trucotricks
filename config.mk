@@ -12,6 +12,8 @@ TARGET ?= linux
 # on/off
 DEBUG ?= off
 
+RES_PATH ?= ./
+
 ifeq ($(TARGET),linux)
 	CC ?= gcc
 	DEPENDENCIES = glfw3 gl sdl2 SDL2_mixer
@@ -43,6 +45,7 @@ endif
 
 TRUCOTRICKS_CFLAGS = -std=c11 -Wall -O2 $(INCS) \
 				  -DVersion='"$(VERSION)"' $(DEBUG_FLAGS) \
+				  -DResPath='"$(RES_PATH)"' \
 				  $(CPPFLAGS) $(CFLAGS)
 
 TRUCOTRICKS_LDFLAGS = -s $(LIBS) $(LDFLAGS)
