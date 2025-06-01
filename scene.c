@@ -72,7 +72,7 @@ void Tt_Scene_Switch(enum Tt_Scene_Id sid)
 		__Tt_Scene_Enter(sid);
 		previous = current;
 		current = sid;
-	} else {
+	} else if (sid != switchTarget) {
 		switchingState = FADE_OUT;
 		isSwitching = true;
 		switchingTimer = 0.0f;
@@ -117,6 +117,7 @@ void Tt_Scene_Update(double dt)
 				__Tt_Scene_Enter(switchTarget);
 				previous = current;
 				current = switchTarget;
+				switchTarget = SCENE_INVALID;
 			}
 		} else {
 			nvgBeginPath(gVg);
