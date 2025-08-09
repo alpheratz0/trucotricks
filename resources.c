@@ -16,4 +16,5 @@ Tt_Font gFontAttackOfMonster = FONT_INVALID;
 Tt_Sound gSoundSwipe = SOUND_INVALID;
 Tt_Sound gSoundGameOver = SOUND_INVALID;
 Tt_Sound gSoundBackgroundMusic = SOUND_INVALID;
+Tt_Sound gSoundBirds = SOUND_INVALID;
 Tt_Sound gSoundSceneSwitching = SOUND_INVALID;

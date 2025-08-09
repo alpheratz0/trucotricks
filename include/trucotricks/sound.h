@@ -6,8 +6,8 @@
 #include <trucotricks/resources.h>
 
 void Tt_Sound_Play(Tt_Sound sound);
-void Tt_Sound_Play_Music(Tt_Sound sound, /*Value between 0 and 1*/float volume);
-void Tt_Sound_Pause_Music(void);
-void Tt_Sound_Resume_Music(void);
+void Tt_Sound_Play_Music(int channel, Tt_Sound sound, /*Value between 0 and 1*/float volume);
+void Tt_Sound_Pause_Music(int channel);
+void Tt_Sound_Resume_Music(int channel);
 
 #endif

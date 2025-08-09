@@ -30,6 +30,7 @@ extern Tt_Font gFontAttackOfMonster;
 extern Tt_Sound gSoundSwipe;
 extern Tt_Sound gSoundGameOver;
 extern Tt_Sound gSoundBackgroundMusic;
+extern Tt_Sound gSoundBirds;
 extern Tt_Sound gSoundSceneSwitching;
 
 #endif

@@ -72,6 +72,7 @@ static void awake(void)
 		Tt_Resource_Sound    (ResPath "resources/swipe.ogg",                  &gSoundSwipe),
 		Tt_Resource_Sound    (ResPath "resources/gameover.ogg",               &gSoundGameOver),
 		Tt_Resource_Sound    (ResPath "resources/bgm.ogg",                    &gSoundBackgroundMusic),
+		Tt_Resource_Sound    (ResPath "resources/birds.ogg",                  &gSoundBirds),
 		Tt_Resource_Sound    (ResPath "resources/scene-switching.ogg",        &gSoundSceneSwitching),
 	};
 
@@ -103,7 +104,8 @@ static void update(double dt)
 	resourceLoader = NULL;
 
 	Tt_Scene_Switch(SCENE_GAMEMODE_SPEED);
-	Tt_Sound_Play_Music(gSoundBackgroundMusic, 0.35f);
+	Tt_Sound_Play_Music(0, gSoundBackgroundMusic, 0.35f);
+	Tt_Sound_Play_Music(1, gSoundBirds, 0.05f);
 	done = true;
 }
 
