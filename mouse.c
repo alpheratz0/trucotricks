@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
 
 static bool prevState[3] = {0};
 static bool currState[3] = {0};
@@ -83,6 +84,14 @@ double Tt_Mouse_Get_Scroll(void)
 	double _scroll = scroll;
 	scroll = 0.0f;
 	return _scroll;
+}
+
+double Tt_Mouse_Distance_To_Mouse(float x, float y)
+{
+	if (ignoreMode || !focused) return 100000.0f;
+	float dx = x - xPosition;
+	float dy = y - yPosition;
+	return sqrt(dx*dx+dy*dy);
 }
 
 void Tt_Mouse_Ignore(bool ignore)

@@ -16,6 +16,7 @@
 #include <trucotricks/resources.h>
 #include <trucotricks/scene.h>
 #include <trucotricks/score_info.h>
+#include <trucotricks/scene_switcher.h>
 #include <trucotricks/sound.h>
 #include <trucotricks/string_builder.h>
 #include <trucotricks/util.h>
@@ -160,16 +161,17 @@ static void awake(void)
 		cardsToMemorizeButtons[i].w = 100;
 		cardsToMemorizeButtons[i].h = 100;
 	}
+
+	Tt_Scene_Switcher_Init();
 }
 
 static void layoutChange(void)
 {
-
 	backgroundParallax.w = gWindowWidth;
 	backgroundParallax.h = gWindowHeight;
 
 	anchorCardButton.x = (gWindowWidth - anchorCardButton.w) * 0.5f;
-	anchorCardButton.y = (gWindowHeight - anchorCardButton.h) * 0.5f;
+	anchorCardButton.y = (gWindowHeight - anchorCardButton.h - 50.0f) * 0.5f;
 
 	customGuessLabel.x = gWindowWidth * 0.5f;
 	customGuessLabel.y = anchorCardButton.y - MARGIN_CUSTOM_GUESS_LABEL - MARGIN_CARD_BUTTON - customGuessLabel.h;
@@ -199,11 +201,14 @@ static void layoutChange(void)
 
 	questionLabel.x = gWindowWidth * 0.5f;
 	questionLabel.y = anchorCardButton.y + anchorCardButton.h + MARGIN_CARD_BUTTON;
+
+	Tt_Scene_Switcher_Layout_Change();
 }
 
 static void enter(void)
 {
 	isMemorizing = true;
+	Tt_Scene_Switcher_Start(3);
 	Tt_String_Builder_Clear(&customGuess);
 	Tt_Score_Info_Reset(&scoreInfo);
 	newMemorizingRound();
@@ -231,6 +236,8 @@ static void update(double dt)
 		Tt_Card_Button_Update(&anchorCardButton);
 		Tt_Label_Update(&questionLabel);
 	}
+
+	Tt_Scene_Switcher_Update();
 }
 
 static void textInput(char c)

@@ -17,6 +17,7 @@
 #include <trucotricks/resources.h>
 #include <trucotricks/scene.h>
 #include <trucotricks/score_info.h>
+#include <trucotricks/scene_switcher.h>
 #include <trucotricks/sound.h>
 #include <trucotricks/suit.h>
 #include <trucotricks/util.h>
@@ -111,6 +112,8 @@ static void awake(void)
 		cardButtons[i].h = 264;
 		cardButtons[i].onClick = cardButtonClicked;
 	}
+
+	Tt_Scene_Switcher_Init();
 }
 
 static void layoutChange(void)
@@ -128,7 +131,7 @@ static void layoutChange(void)
 	backgroundParallax.w = gWindowWidth;
 	backgroundParallax.h = gWindowHeight;
 
-	float heightUsed = cardEncodedButton.h + MARGIN_CARD_ENCODED_BUTTON + MARGIN_CARD_BUTTON + cardButtons[0].h;
+	float heightUsed = cardEncodedButton.h + MARGIN_CARD_ENCODED_BUTTON + MARGIN_CARD_BUTTON + cardButtons[0].h + 50.0f;
 
 	float y = (gWindowHeight - heightUsed) * 0.5f;
 
@@ -145,10 +148,13 @@ static void layoutChange(void)
 		cardButtons[i].x = cardButtonsX;
 		cardButtonsX += cardButtons[0].w + MARGIN_CARD_BUTTON;
 	}
+
+	Tt_Scene_Switcher_Layout_Change();
 }
 
 static void enter(void)
 {
+	Tt_Scene_Switcher_Start(1);
 	Tt_Score_Info_Reset(&scoreInfo);
 	newRound();
 }
@@ -171,6 +177,8 @@ static void update(double dt)
 
 	for (size_t i = 0; i < Tt_Length(cardButtons); ++i)
 		Tt_Card_Button_Update(&cardButtons[i]);
+
+	Tt_Scene_Switcher_Update();
 }
 
 static void keyPress(enum Tt_Key key, enum Tt_Mod mods)

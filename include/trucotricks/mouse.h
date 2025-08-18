@@ -19,6 +19,7 @@ void Tt_Mouse_Deinit(void);
 double Tt_Mouse_Get_X(void);
 double Tt_Mouse_Get_Y(void);
 double Tt_Mouse_Get_Scroll(void);
+double Tt_Mouse_Distance_To_Mouse(float x, float y);
 void Tt_Mouse_Ignore(bool ignore);
 
 bool Tt_Mouse_Is_Over_Rect(const Tt_Rect *rect);

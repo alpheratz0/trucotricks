@@ -9,7 +9,7 @@
 
 #define WINDOW_TITLE "Truco Tricks"
 #define WINDOW_INITIAL_WIDTH (1400)
-#define WINDOW_INITIAL_HEIGHT (650)
+#define WINDOW_INITIAL_HEIGHT (700)
 
 /** The window */
 extern GLFWwindow *gWindow;
