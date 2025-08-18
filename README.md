@@ -1,5 +1,7 @@
 # Truco tricks
 
+A helper tool for the Uruguayan card game Truco. Each card gets a 2-3 letter code to make sharing hands easier and to help with memorization of the deck. Press F1 to view the encoding/decoding table.
+
 ![Truco tricks running on windows 7](./media/win7.png)
 
 ## Installing dependencies (glfw-x11/glfw-wayland depending on your display server)
