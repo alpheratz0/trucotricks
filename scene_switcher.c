@@ -28,7 +28,7 @@ void Tt_Scene_Switcher_Init(void)
 	if (sceneSwitcher.buttonCount > 0)
 		return;
 
-	sceneSwitcher.w = 200;
+	sceneSwitcher.w = 200; // maybe decrease it
 	sceneSwitcher.h = 8;
 	sceneSwitcher.selectedIndex = 0;
 	sceneSwitcher.buttonTooltips[sceneSwitcher.buttonCount++] = "Speed";

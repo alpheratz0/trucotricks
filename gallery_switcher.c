@@ -50,7 +50,7 @@ void Tt_Gallery_Switcher_Update(Tt_Gallery_Switcher *gs)
 				}
 			}
 
-			if (gs->hoverTime > 0.8f) {
+			if (gs->hoverTime > 0.5f) {
 				nvgBeginPath(gVg);
 				float padding = 10.0f;
 				nvgFontFaceId(gVg, gFontTerminus);
@@ -60,20 +60,18 @@ void Tt_Gallery_Switcher_Update(Tt_Gallery_Switcher *gs)
 				float tooltipY = y - 45.0f - gs->h;
 				float tooltipX = x - tw/2 - padding;
 
-				float fade = (gs->hoverTime - 0.8f) / 0.5f;
+				float fade = (gs->hoverTime - 0.5f) / 0.5f;
 
-				if (fade > 0.8f) fade = 0.8f;
+				if (fade > 1.0f) fade = 1.0f;
 
-				int alpha = fade * 0xff;
-
-				nvgFillColor(gVg, nvgRGBA(0xff, 0xff, 0xff, alpha));
-				nvgRoundedRect(gVg, tooltipX, tooltipY, tw + padding * 2.0f, 30.0f, CORNER_RADIUS);
+				nvgFillColor(gVg, nvgRGBA(0xff, 0xff, 0xff, (fade * 0.8f) * 0xff));
+				nvgRoundedRect(gVg, tooltipX, tooltipY + 5.0f * (1.0f - fade), tw + padding * 2.0f, 30.0f, CORNER_RADIUS);
 				nvgFill(gVg);
 
 				nvgBeginPath(gVg);
-				nvgFillColor(gVg, nvgRGBA(0x00, 0x00, 0x00, 0xff));
+				nvgFillColor(gVg, nvgRGBA(0x00, 0x00, 0x00, fade * 0xff));
 				nvgTextAlign(gVg, NVG_ALIGN_LEFT|NVG_ALIGN_MIDDLE);
-				nvgText2(gVg, tooltipX + padding, tooltipY + 15.0f, gs->buttonTooltips[i], NULL);
+				nvgText2(gVg, tooltipX + padding, tooltipY + 15.0f + 5.0f * (1.0f - fade), gs->buttonTooltips[i], NULL);
 				nvgFill(gVg);
 			}
 		}
