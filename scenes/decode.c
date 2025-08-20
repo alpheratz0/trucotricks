@@ -185,9 +185,11 @@ static void keyPress(enum Tt_Key key, enum Tt_Mod mods)
 {
 	switch (key) {
 	case KEY_1:
+	case KEY_LEFT_ARROW:
 		Tt_Scene_Switch(SCENE_GAMEMODE_SPEED);
 		break;
 	case KEY_3:
+	case KEY_RIGHT_ARROW:
 		Tt_Scene_Switch(SCENE_GAMEMODE_ENCODE);
 		break;
 	case KEY_4:

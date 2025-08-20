@@ -225,9 +225,11 @@ static void keyPress(enum Tt_Key key, enum Tt_Mod mods)
 		Tt_Scene_Switch(SCENE_GAMEMODE_SPEED);
 		break;
 	case KEY_2:
+	case KEY_LEFT_ARROW:
 		Tt_Scene_Switch(SCENE_GAMEMODE_DECODE);
 		break;
 	case KEY_4:
+	case KEY_RIGHT_ARROW:
 		Tt_Scene_Switch(SCENE_GAMEMODE_MEMORIZE);
 		break;
 	case KEY_F1:
