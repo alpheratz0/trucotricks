@@ -38,6 +38,9 @@ void Tt_Gallery_Switcher_Update(Tt_Gallery_Switcher *gs)
 		nvgFillColor(gVg, i == gs->selectedIndex ? UNSELECTED_COLOR : SELECTED_COLOR);
 		nvgArc(gVg, x, y, radius, 0, M_PI * 2, NVG_CW);
 		nvgFill(gVg);
+		nvgStrokeColor(gVg, SHADOW_COLOR);
+		nvgStrokeWidth(gVg, 1.0f);
+		nvgStroke(gVg);
 
 		if (Tt_Mouse_Distance_To_Mouse(x, y) <= (radius + HOVER_THRESHOLD)) {
 			nothingHovered = 0;
