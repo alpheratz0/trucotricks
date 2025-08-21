@@ -14,8 +14,8 @@
 
 #define CORNER_RADIUS (5.0f)
 #define SHADOW_COLOR (nvgRGBA(0x00, 0x00, 0x00, 0x7f))
-#define UNSELECTED_COLOR (nvgRGBA(0xcc, 0xcc, 0x33, 0xee))
-#define SELECTED_COLOR (nvgRGBA(0xff, 0xff, 0xff, 0xee))
+#define SELECTED_COLOR (nvgRGBA(0xcc, 0xcc, 0x33, 0xee))
+#define UNSELECTED_COLOR (nvgRGBA(0xff, 0xff, 0xff, 0xee))
 #define HOVER_THRESHOLD (3)
 
 void Tt_Gallery_Switcher_Update(Tt_Gallery_Switcher *gs)
@@ -35,7 +35,7 @@ void Tt_Gallery_Switcher_Update(Tt_Gallery_Switcher *gs)
 		nvgFill(gVg);
 
 		nvgBeginPath(gVg);
-		nvgFillColor(gVg, i == gs->selectedIndex ? UNSELECTED_COLOR : SELECTED_COLOR);
+		nvgFillColor(gVg, i == gs->selectedIndex ? SELECTED_COLOR : UNSELECTED_COLOR);
 		nvgArc(gVg, x, y, radius, 0, M_PI * 2, NVG_CW);
 		nvgFill(gVg);
 		nvgStrokeColor(gVg, SHADOW_COLOR);
