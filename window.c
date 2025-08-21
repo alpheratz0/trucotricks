@@ -23,6 +23,16 @@ double gWindowHeight = WINDOW_INITIAL_HEIGHT;
 
 void Tt_Window_Create(void)
 {
+	D(("Setting SDL hints..."));
+	if (SDL_SetHint(SDL_HINT_APP_NAME, WINDOW_TITLE) < 0)
+		Fatal(("Couldn't set SDL app name hint: %s.", SDL_GetError()));
+
+	if (SDL_SetHint(SDL_HINT_AUDIO_DEVICE_APP_NAME, WINDOW_TITLE) < 0)
+		Fatal(("Couldn't set SDL audio device app name hint: %s.", SDL_GetError()));
+
+	if (SDL_SetHint(SDL_HINT_AUDIO_DEVICE_STREAM_NAME, "Game") < 0)
+		Fatal(("Couldn't set SDL audio device stream name hint: %s.", SDL_GetError()));
+
 	D(("Initializing SDL audio..."));
 	if (SDL_Init(SDL_INIT_AUDIO) < 0)
 		Fatal(("Couldn't initialize SDL audio: %s.", SDL_GetError()));
