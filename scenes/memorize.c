@@ -176,19 +176,22 @@ static void layoutChange(void)
 	customGuessLabel.x = gWindowWidth * 0.5f;
 	customGuessLabel.y = anchorCardButton.y - MARGIN_CUSTOM_GUESS_LABEL - MARGIN_CARD_BUTTON - customGuessLabel.h;
 
-	int extraRow = (numberOfCardsToMemorize % 6) > 0 ? 1 : 0;
-	int left = Tt_Min(numberOfCardsToMemorize, 6);
-	float cardsToMemorizeButtonsX = (gWindowWidth - cardsToMemorizeButtons[0].w * left - 30 * (left-1)) / 2;
-	float cardsToMemorizeButtonsY = (gWindowHeight - 60 - cardsToMemorizeButtons[0].h * (numberOfCardsToMemorize/6+extraRow) - 30 * ((numberOfCardsToMemorize/6+extraRow)-1)) / 2;
+	float spacing = 30;
+	int maxCardsPerRow = Tt_Min((int)(gWindowWidth / (cardsToMemorizeButtons[0].w + spacing)), 6);
+	int extraRow = (numberOfCardsToMemorize % maxCardsPerRow) > 0 ? 1 : 0;
+	int left = Tt_Min(numberOfCardsToMemorize, maxCardsPerRow);
+	float cardsToMemorizeButtonsX = (gWindowWidth - cardsToMemorizeButtons[0].w * left - spacing * (left-1)) / 2;
+	float cardsToMemorizeButtonsY = (gWindowHeight - 60 - cardsToMemorizeButtons[0].h * (numberOfCardsToMemorize/maxCardsPerRow+extraRow) -
+			spacing * ((numberOfCardsToMemorize/maxCardsPerRow+extraRow)-1)) / 2;
 
 	for (size_t i = 0; i < numberOfCardsToMemorize; ++i) {
 		cardsToMemorizeButtons[i].x = cardsToMemorizeButtonsX;
 		cardsToMemorizeButtons[i].y = cardsToMemorizeButtonsY;
-		cardsToMemorizeButtonsX += cardsToMemorizeButtons[i].w + 30;
+		cardsToMemorizeButtonsX += cardsToMemorizeButtons[i].w + spacing;
 
-		if ((i+1) % 6 == 0) {
-			left = Tt_Min(numberOfCardsToMemorize-i-1, 6);
-			cardsToMemorizeButtonsY += cardsToMemorizeButtons[0].h + 30;
+		if ((i+1) % maxCardsPerRow == 0) {
+			left = Tt_Min(numberOfCardsToMemorize-i-1, maxCardsPerRow);
+			cardsToMemorizeButtonsY += cardsToMemorizeButtons[0].h + spacing;
 			cardsToMemorizeButtonsX = (gWindowWidth - cardsToMemorizeButtons[0].w * left - 30 * (left-1)) / 2;
 		}
 	}
