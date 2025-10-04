@@ -18,17 +18,26 @@ typedef struct {
 static Tt_Raindrop drops[MAX_RAINDROPS];
 static int rainInitialized = 0;
 
+// FIXME: We are ignoring parallax->x & parallax->y now, that sucks
+// but it works for now to make the parallax not stretch
 void Tt_Parallax_Update(Tt_Parallax *parallax)
 {
+	float windowRatio = gWindowWidth / gWindowHeight;
 	for (size_t i = 0; i < parallax->nTextures; ++i) {
+		int textureWidth, textureHeight;
+		nvgImageSize(gVg, parallax->textures[i], &textureWidth, &textureHeight);
+		float textureRatio = (float)(textureWidth) / textureHeight;
+		int parallaxWidth =  textureRatio > windowRatio ? gWindowHeight * textureRatio : gWindowWidth;
+		int parallaxHeight = textureRatio > windowRatio ? gWindowHeight : gWindowWidth / textureRatio;
+
 		float delta = parallax->deltaX[i];
 		parallax->deltaX[i] += gDeltaTime * 5.0f * i;
 		if (parallax->deltaX[i] > 1000000) {
 			parallax->deltaX[i] -= 1000000;
 		}
-		NVGpaint paint = nvgImagePattern(gVg, parallax->x + delta, parallax->y, parallax->w, parallax->h, 0.0, parallax->textures[i], 1.0);
+		NVGpaint paint = nvgImagePattern(gVg, parallax->x + delta, gWindowHeight - parallaxHeight, parallaxWidth, parallaxHeight, 0.0, parallax->textures[i], 1.0);
 		nvgBeginPath(gVg);
-		nvgRect(gVg, parallax->x, parallax->y, parallax->w, parallax->h);
+		nvgRect(gVg, parallax->x, gWindowHeight - parallaxHeight, parallaxWidth, parallaxHeight);
 		nvgFillPaint(gVg, paint);
 		nvgFill(gVg);
 	}
