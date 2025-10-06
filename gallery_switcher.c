@@ -14,8 +14,8 @@
 
 #define CORNER_RADIUS (5.0f)
 #define SHADOW_COLOR (nvgRGBA(0x00, 0x00, 0x00, 0x7f))
-#define SELECTED_COLOR (nvgRGBA(0xcc, 0xcc, 0x33, 0xee))
-#define UNSELECTED_COLOR (nvgRGBA(0xff, 0xff, 0xff, 0xee))
+#define SELECTED_COLOR (nvgRGBA(0xff, 0xff, 0xff, 0xff))
+#define UNSELECTED_COLOR (nvgRGBA(0xff, 0xff, 0xff, 0x88))
 #define HOVER_THRESHOLD (3)
 
 void Tt_Gallery_Switcher_Update(Tt_Gallery_Switcher *gs)
