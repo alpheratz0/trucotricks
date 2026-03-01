@@ -5,23 +5,28 @@ workspace "nanovg"
     configurations { "Debug", "Release" }
     platforms { "native", "x64", "x32" }
 
-project "nanovg"
-    kind "StaticLib"
-    language "C"
-    includedirs { "src" }
-    files { "src/*.c" }
-    targetdir "build"
-    defines { "_CRT_SECURE_NO_WARNINGS" }
+local function nanovg_lib(kind_name, target_suffix)
+    project("nanovg" .. target_suffix)
+        kind(kind_name)
+        language "C"
+        includedirs { "src" }
+        files { "src/*.c" }
+        targetdir "build"
+        defines { "_CRT_SECURE_NO_WARNINGS" }
 
-    filter "configurations:Debug"
-        defines { "DEBUG" }
-        symbols "On"
-        warnings "Extra"
+        filter "configurations:Debug"
+            defines { "DEBUG" }
+            symbols "On"
+            warnings "Extra"
 
-    filter "configurations:Release"
-        defines { "NDEBUG" }
-        optimize "On"
-        warnings "Extra"
+        filter "configurations:Release"
+            defines { "NDEBUG" }
+            optimize "On"
+            warnings "Extra"
+end
+
+nanovg_lib("StaticLib", "_static")
+nanovg_lib("SharedLib", "")
 
 function setup_example(name, file, extra_defines)
     project(name)

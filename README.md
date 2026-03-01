@@ -15,6 +15,7 @@ $ wget -O premake5.lua https://raw.githubusercontent.com/alpheratz0/trucotricks/
 $ premake5 gmake
 $ make -C build
 $ sudo install -m 644 build/libnanovg.a /usr/lib/
+$ sudo install -m 644 build/libnanovg.so /usr/lib/
 $ sudo install -d /usr/include/nanovg
 $ sudo install -m 644 src/*.h /usr/include/nanovg/
 ```
